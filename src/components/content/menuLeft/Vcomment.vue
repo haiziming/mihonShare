@@ -25,24 +25,27 @@
 
         <div class="comment">
             <el-dialog title="留言" :visible.sync="dialogFormVisible" width="40%">
-				<el-card class="box-card">
-					<el-form :model="messageForm">
-						<el-form-item label="邮箱" :label-width="formLabelWidth">
-							<el-input v-model="messageForm.email" placeholder="请输入邮箱" ></el-input>
-						</el-form-item>
-						<el-form-item label="昵称" :label-width="formLabelWidth">
-							<el-input v-model="messageForm.nickName" placeholder="请输入昵称" ></el-input>
-						</el-form-item>
-						<el-form-item label="内容" :label-width="formLabelWidth">
-                            <el-input
-                                type="textarea"
-                                :autosize="{ minRows: 2, maxRows: 4}"
-                                placeholder="请输入内容"
-                                v-model="messageForm.content">
-                            </el-input>
-						</el-form-item>
-				    </el-form>
-				</el-card>
+                <div v-on:keyup.enter="openMessageBorad">
+                    <el-card class="box-card">
+                        <el-form :model="messageForm">
+                            <el-form-item label="邮箱" :label-width="formLabelWidth">
+                                <el-input v-model="messageForm.email" placeholder="请输入邮箱" ></el-input>
+                            </el-form-item>
+                            <el-form-item label="昵称" :label-width="formLabelWidth">
+                                <el-input v-model="messageForm.nickName" placeholder="请输入昵称" ></el-input>
+                            </el-form-item>
+                            <el-form-item label="内容" :label-width="formLabelWidth">
+                                <el-input
+                                    type="textarea"
+                                    :autosize="{ minRows: 2, maxRows: 4}"
+                                    placeholder="请输入内容"
+                                    v-model="messageForm.content">
+                                </el-input>
+                            </el-form-item>
+                        </el-form>
+				    </el-card>
+                </div>
+				
 				<div slot="footer" class="dialog-footer">
 					<el-button type="info" @click="closeMessageBoard">取 消</el-button>
 					<el-button type="success" @click="openMessageBorad">确 定</el-button>
@@ -92,11 +95,13 @@
                     message: '恭喜你，这是一条成功消息',
                     type: 'success'
                 });
+                this.messageForm.email = '';
                 this.messageForm.nickName = '';
                 this.messageForm.content = '';
                 },
             closeMessageBoard(){
                 this.dialogFormVisible = false;
+                this.messageForm.email = '';
                 this.messageForm.nickName = '';
                 this.messageForm.content = '';
                 }

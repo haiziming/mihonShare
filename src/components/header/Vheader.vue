@@ -2,7 +2,7 @@
     <div>
 	    <div class="header">
 			<el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-				<el-menu-item index="1" style="margin-right: 35%;">Share首页</el-menu-item>
+				<el-menu-item index="1" :id="classInit ? 'title-marginA' : 'title-marginB'">Share首页</el-menu-item>
 				<el-submenu index="2">
 					<template slot="title">视频分享</template>
 					<el-menu-item index="2-1">影视视频</el-menu-item>
@@ -17,21 +17,35 @@
 				<el-menu-item index="4">学习软件</el-menu-item>
 				<el-menu-item index="5" v-if='imgUpload' @click="imgUploadDialogTableVisible = true">图片上传</el-menu-item>
 				<el-menu-item index="6" style="float: right;" @click="loginDialogTableVisible = true" v-if='loginDisplay'>登入</el-menu-item>
-				<el-menu-item index="7" style="float: right;" v-if='userDisplay' v-cloak>{{user}}</el-menu-item>
+				<span index="7" style="float: right;" v-if='userDisplay' v-cloak>
+					<img src="../../assets/avtar/a13.jpg" class="avtar" :title="user" :alt="user">
+				</span>
+				<span index="8" style="float: right;margin-top:10px">
+					<el-input placeholder="请输入内容" v-model="search" class="input-with-select" style="float: right;">
+						<el-select v-model="select" slot="prepend" placeholder="请选择">
+						    <el-option label="教学视屏" value="1"></el-option>
+						    <el-option label="PDF书籍" value="2"></el-option>
+						    <el-option label="软件分享" value="3"></el-option>
+						</el-select>
+						<el-button slot="append" icon="el-icon-search"></el-button>
+					</el-input>
+				</span>
 			</el-menu>
 		</div>
 		  	<div class="login-card">
 				<el-dialog title="登入" :visible.sync="loginDialogTableVisible">
-						<el-card class="box-card">
-							<el-form :model="loginForm">
-								<el-form-item label="账号" :label-width="formLabelWidth">
-									<el-input v-model="loginForm.account" ></el-input>
-								</el-form-item>
-								<el-form-item label="密码" :label-width="formLabelWidth">
-									<el-input type="password" v-model="loginForm.password"></el-input>
-								</el-form-item>
-							</el-form>
-						</el-card>
+						<div v-on:keyup.enter="openLogin">
+							<el-card class="box-card">
+								<el-form :model="loginForm">
+									<el-form-item label="账号" :label-width="formLabelWidth">
+										<el-input v-model="loginForm.account"></el-input>
+									</el-form-item>
+									<el-form-item label="密码" :label-width="formLabelWidth">
+										<el-input type="password" v-model="loginForm.password"></el-input>
+									</el-form-item>
+								</el-form>
+							</el-card>
+						</div>
 						<div slot="footer" class="dialog-footer">
 							<el-button type="info" @click="closeLogin">取 消</el-button>
 							<el-button type="success" @click="openLogin">确 定</el-button>
@@ -63,7 +77,7 @@
     </div>
 </template>
 <script>
-    import Vheader from './Vheader'
+	import Vheader from './Vheader'
     export default{
     	data(){
     		return {
@@ -85,10 +99,14 @@
 					{name: 'food.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}, 
 					{name: 'food2.jpeg', url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'}
 				],
-
+				search:'',
+				select:'',
+				classInit:true,
     		}
     	},
-        components:{ Vheader },
+		components:{ 
+			Vheader,
+		 },
         methods:{
 			handleSelect(key, keyPath) {
 		        console.log(key, keyPath);
@@ -98,12 +116,13 @@
 					this.imgUpload = true;
 					this.loginDisplay = false;
 					this.userDisplay = true;
-				this.$notify({
-				message: '登入成功！',
-				type: 'success',
-				position: 'top-left',
-				duration:2000
-				});
+					this.classInit = false;
+					this.$notify({
+						message: '登入成功！',
+						type: 'success',
+						position: 'top-left',
+						duration:2000
+					});
 				}
 				this.loginDialogTableVisible = false;
 				this.loginForm.account = '';
@@ -138,5 +157,19 @@
     }
 </script>
 <style>
-
+	.avtar{
+		width: 52px;
+		height: 52px;
+		border-radius:50%;
+		padding-top: 3px;
+		margin-left: 5px;
+		padding-right: 5px;
+		cursor: pointer;
+	}
+	#title-marginA{
+		margin-right: 35%;
+	}
+	#title-marginB{
+		margin-right: 30%;
+	}
 </style>
