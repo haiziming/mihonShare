@@ -1,21 +1,33 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Share from '@/components/Share'
 import parent from '@/components/parent'
+import contentMain from '../components/content/sourceRight/Vmain'
+import contentMore from '../components/content/sourceRight/VsourceMore'
+import notFound404 from '../components/notFound404'
+import count from '../components/Vcount'
+
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'Share',
-      component: Share
+      component: Share,
+      children:[
+          {path:'/', name:'main', component:contentMain},
+          {path:'/sourceMore/:sourceMoreValue', name:'sourceMore', component:contentMore}
+      ],
     },
     {
-      path: '/ppp',
-      component: parent
-    }
+      path:'*',
+      component:notFound404,
+    },
+    {
+      path:'/count',
+      component:count,
+    },
   ]
 })

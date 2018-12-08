@@ -20,6 +20,12 @@
 						<p style="margin-bottom: 10px;"><span style="color: #66B1FF;font-size: 16px;">{{item.nickName }} : </span><span style="color: #000000;">{{item.content}}</span></p> 
 					</div>
 				</el-card>
+                <div>
+                    <el-pagination
+                        layout="prev, pager, next"
+                        :total="1000">
+                    </el-pagination>
+                </div>
 			</el-dialog>
   	    </div>
 
@@ -45,7 +51,6 @@
                         </el-form>
 				    </el-card>
                 </div>
-				
 				<div slot="footer" class="dialog-footer">
 					<el-button type="info" @click="closeMessageBoard">取 消</el-button>
 					<el-button type="success" @click="openMessageBorad">确 定</el-button>

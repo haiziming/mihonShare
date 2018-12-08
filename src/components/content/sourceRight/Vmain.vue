@@ -2,7 +2,7 @@
     <div>
         <div class="share-content">
 			<div class="item">
-			  	<div style="padding-top: 30px;padding-bottom: 7px;">
+			  	<div class="title">
 			  		<span style="font-size: 20px;">视频分享</span>
 			  		<span class="get-more">
 			  			获取更多>>
@@ -25,7 +25,7 @@
 			</div>
 			  		
 			<div class="item">
-			  	<div style="padding-top: 30px;padding-bottom: 7px;">
+			  	<div class="title">
 			  		<span style="font-size: 20px;">PDF书籍</span>
 			  		<span class="get-more">
 			  			获取更多>>
@@ -48,7 +48,7 @@
 			</div>
 			  					  	
 			<div class="item">
-			  	<div style="padding-top: 30px;padding-bottom: 7px;">
+			  	<div class="title">
 			  		<span style="font-size: 20px;">软件分享</span>
 			  		<span class="get-more">
 			  			获取更多>>
@@ -78,6 +78,7 @@
     import hamburgerImg from '@/assets/test.png'
 	import VsourceCard from '../common/VsourceCard'
     export default{
+		name:'main',
         data(){
             return {
 				hamburgerImg,
@@ -118,4 +119,8 @@
 		color: #66b1ff;
 		cursor: pointer;
 	}
+    .title{
+        padding-top: 38px;
+        padding-bottom: 7px;
+    }
 </style>

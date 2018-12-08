@@ -2,23 +2,33 @@
     <div>
 	    <div class="header">
 			<el-menu :default-active="activeIndex2" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-				<el-menu-item index="1" :id="classInit ? 'title-marginA' : 'title-marginB'">Share首页</el-menu-item>
+				<el-menu-item index="1" :id="classInit ? 'title-marginA' : 'title-marginB'"><router-link to="/" tag="span">Share首页</router-link></el-menu-item>
 				<el-submenu index="2">
-					<template slot="title">视频分享</template>
-					<el-menu-item index="2-1">影视视频</el-menu-item>
+					<template slot="title"><router-link to="/sourceMore/1" tag="span">视频分享</router-link></template>
+					<el-menu-item index="2-1"><router-link to="/sourceMore/1" tag="span">影视视频</router-link></el-menu-item>
 					<el-submenu index="2-2">
 						<template slot="title">教学视频</template>
-						<el-menu-item index="2-2-1">Python</el-menu-item>
-						<el-menu-item index="2-2-2">前端</el-menu-item>
-						<el-menu-item index="2-2-3">其他</el-menu-item>
+						<el-menu-item index="2-2-1"><router-link to="/sourceMore/1" tag="span">Python</router-link></el-menu-item>
+						<el-menu-item index="2-2-2"><router-link to="/sourceMore/1" tag="span">前端</router-link></el-menu-item>
+						<el-menu-item index="2-2-3"><router-link to="/sourceMore/1" tag="span">其他</router-link></el-menu-item>
 					</el-submenu>
 				</el-submenu>
-				<el-menu-item index="3">PDF书籍</el-menu-item>
-				<el-menu-item index="4">学习软件</el-menu-item>
+				<el-menu-item index="3"><router-link to="/sourceMore/2" tag="span">PDF书籍</router-link></el-menu-item>
+				<el-menu-item index="4"><router-link to="/sourceMore/3" tag="span">学习软件</router-link></el-menu-item>
 				<el-menu-item index="5" v-if='imgUpload' @click="imgUploadDialogTableVisible = true">图片上传</el-menu-item>
 				<el-menu-item index="6" style="float: right;" @click="loginDialogTableVisible = true" v-if='loginDisplay'>登入</el-menu-item>
 				<span index="7" style="float: right;" v-if='userDisplay' v-cloak>
-					<img src="../../assets/avtar/a13.jpg" class="avtar" :title="user" :alt="user">
+					
+                    <el-dropdown :hide-on-click="false">
+                        <span class="el-dropdown-link">
+                            <img src="../../assets/avtar/a13.jpg" class="avtar" :alt="user">
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>{{user}}</el-dropdown-item>
+                            <el-dropdown-item disabled>头像设置</el-dropdown-item>
+                            <el-dropdown-item divided><a @click="loginOut">注销</a></el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
 				</span>
 				<span index="8" style="float: right;margin-top:10px">
 					<el-input placeholder="请输入内容" v-model="search" class="input-with-select" style="float: right;">
@@ -102,6 +112,7 @@
 				search:'',
 				select:'',
 				classInit:true,
+				sourceTypeValue:1,
     		}
     	},
 		components:{ 
@@ -132,7 +143,17 @@
 				this.loginDialogTableVisible = false;
 				this.loginForm.account = '';
 				this.loginForm.password = '';
-			},
+            },
+            loginOut(){
+                this.loginDisplay = true;
+                this.userDisplay = false;
+                this.$notify({
+						message: '注销成功！',
+						type: 'success',
+						position: 'top-left',
+						duration:2000
+					});
+            },
 			closeUpload(){
 				this.imgUploadDialogTableVisible = false;
 			},
