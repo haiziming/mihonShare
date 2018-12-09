@@ -78,7 +78,7 @@
     import hamburgerImg from '@/assets/test.png'
 	import VsourceCard from '../common/VsourceCard'
     export default{
-		name:'main',
+		name:'vmain',
         data(){
             return {
 				hamburgerImg,

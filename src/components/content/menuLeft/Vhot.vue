@@ -5,8 +5,11 @@
 				<div slot="header" class="clearfix">
 					<span><i class="icon iconfont icon-zuire" style="color: red;"></i>最热 Hot</span>
 				</div>
-				<div v-for="o in 5" :key="o" class="text item">
-					<a style="cursor: pointer;" @click="openDialog" v-cloak>{{'列表内容 ' + o }}</a> 
+				<div v-for="(item,index) in hotData.data" :key="index" class="text item">
+					<a class="link-a" href="javascript:void(0)" @click="openDialog" v-cloak>
+                        <span class="title">{{item.title}}</span>
+                        <span class="time">--{{item.ctime}}</span>
+                    </a> 
 				</div>
                 <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog'></VsourceCard>
 			</el-card>
@@ -31,10 +34,24 @@
         },
         components:{
             VsourceCard,
+        },
+        props:{
+            hotData:Object,
         }
     }
 </script>
 
 <style scoped="scoped">
-
+    .link-a{
+        cursor: pointer;
+    }
+    .link-a:hover{
+        color: black
+    }
+    .title{
+        font-size: 18px;
+    }
+    .time{
+        font-size: 14px;
+    }
 </style>

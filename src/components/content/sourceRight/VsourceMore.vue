@@ -45,7 +45,7 @@
             return {
 				hamburgerImg,
                 resourceDialogTableVisible:false,
-                sourceType: this.$route.params.sourceMoreValue,
+                sourceType: '',
                 sourceCategory:{
                     1:'视频分享',
                     2:'PDF书籍',
@@ -66,9 +66,15 @@
         },
         computed:{
             sourceTypeValue(){
-                return this.$route.params.sourceMoreValue
+                if (this.sourceCategory[this.$route.params.sourceMoreValue]){
+                    return this.$route.params.sourceMoreValue
+                }else{
+                    this.$router.push('/404')
+                }
+                
             }
-        }
+
+        },
 
     }
 </script>

@@ -6,8 +6,8 @@
 					<span><i class="icon iconfont icon-liuyan1" style="color: #1afa29;"></i>留言墙 message board</span>
 					<el-button style="float: right; padding: 3px 0" type="text" @click="dialogFormVisible = true">留言</el-button>					
 				</div>			  
-				<div v-for="(item,index) in recommend" class="text item" :key="index">
-					<p style="margin-bottom: 10px;"><span style="color: #66B1FF;font-size: 16px;" v-cloak>{{item.nickName }} : </span><span style="color: #000000;" v-cloak>{{item.content}}</span></p> 
+				<div v-for="(item,index) in commentData.data" class="text item" :key="index">
+					<p style="margin-bottom: 10px;"><span style="color: #66B1FF;font-size: 16px;" v-cloak>{{item.name }} : </span><span style="color: #000000;" v-cloak>{{item.content}}</span></p> 
 				</div>
 				<div style="text-align: center;color: #1afa29;cursor: pointer;" @click="messageDialogTableVisible = true">查看更多留言</div>
 			</el-card>
@@ -60,6 +60,7 @@
     </div>
 </template>
 <script>
+    import axios from 'axios';
     export default{
         data(){
             return {
@@ -110,7 +111,20 @@
                 this.messageForm.nickName = '';
                 this.messageForm.content = '';
                 }
+        },
+        props:{
+            commentData:Object,
+        },
+        mounted(){
+           axios.get('http://127.0.0.1:8000/api/v1/mihonShare/messageMore')
+            .then(response=>{
+                console.log(response)
+            })
+            .catch(error=>{
+                console.log(error)
+            }) 
         }
+
     }
 </script>
 

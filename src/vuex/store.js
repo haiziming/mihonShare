@@ -6,7 +6,8 @@ import { stat } from 'fs';
 Vue.use(Vuex)
 
 const state={
-    count:1
+    count:1,
+    remote:1,
 }
 
 const mutations={
@@ -15,6 +16,9 @@ const mutations={
     },
     reduce(state){
         state.count--;
+    },
+    getRemote(state){
+        state.remote += 1;
     }
 }
 
@@ -30,6 +34,9 @@ const actions={
     },
     reduceAction({commit}){
         commit('reduce')
+    },
+    getRemoteAction(context){
+        context.commit('getRemote')
     }
 }
 
