@@ -5,12 +5,12 @@
 				<el-menu-item index="1" :id="classInit ? 'title-marginA' : 'title-marginB'"><router-link to="/" tag="span">Share首页</router-link></el-menu-item>
 				<el-submenu index="2">
 					<template slot="title"><router-link to="/sourceMore/1" tag="span">视频分享</router-link></template>
-					<el-menu-item index="2-1"><router-link to="/sourceMore/1" tag="span">影视视频</router-link></el-menu-item>
+					<el-menu-item index="2-1"><router-link to="/sourceMore/1-1" tag="span">影视视频</router-link></el-menu-item>
 					<el-submenu index="2-2">
 						<template slot="title">教学视频</template>
-						<el-menu-item index="2-2-1"><router-link to="/sourceMore/1" tag="span">Python</router-link></el-menu-item>
-						<el-menu-item index="2-2-2"><router-link to="/sourceMore/1" tag="span">前端</router-link></el-menu-item>
-						<el-menu-item index="2-2-3"><router-link to="/sourceMore/1" tag="span">其他</router-link></el-menu-item>
+						<el-menu-item index="vedioPthon"><router-link to="/sourceMore/1-2" tag="span">Python</router-link></el-menu-item>
+						<el-menu-item index="vedioWeb"><router-link to="/sourceMore/1-3" tag="span">前端</router-link></el-menu-item>
+						<el-menu-item index="vedioOther"><router-link to="/sourceMore/1-4" tag="span">其他</router-link></el-menu-item>
 					</el-submenu>
 				</el-submenu>
 				<el-menu-item index="3"><router-link to="/sourceMore/2" tag="span">PDF书籍</router-link></el-menu-item>

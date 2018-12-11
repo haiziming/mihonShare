@@ -5,18 +5,18 @@
 			  	<div class="title">
 			  		<span style="font-size: 20px;">视频分享</span>
 			  		<span class="get-more">
-			  			获取更多>>
+			  			<router-link to="/sourceMore/1" tag="span">获取更多>></router-link>
 			  		</span>
 			  	</div>
 				<el-row>
-					<el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
+					<el-col :span="6" v-for="(item, index) in videoData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="hamburgerImg" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
 							<div style="padding: 14px;">
-							    <span>好吃的汉堡</span>
+							    <span>{{item.title}}</span>
 							    <div class="bottom clearfix">
-							        <time class="time">2018-8-15</time>
-							        <el-button type="text" class="button"  @click="openDialog">百度网盘获取</el-button>
+							        <time class="time">{{item.ctime}}</time>
+							        <el-button type="text" class="button"  @click="openDialog(item)">百度网盘获取</el-button>
 							    </div>
 							</div>
 						</el-card>
@@ -28,18 +28,18 @@
 			  	<div class="title">
 			  		<span style="font-size: 20px;">PDF书籍</span>
 			  		<span class="get-more">
-			  			获取更多>>
+			  			<router-link to="/sourceMore/2" tag="span">获取更多>></router-link>
 			  		</span>
 			  	</div>
 				<el-row>
-					<el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
+					<el-col :span="6" v-for="(item, index) in PDFbookData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="hamburgerImg" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
 							<div style="padding: 14px;">
-							    <span>好吃的汉堡</span>
+							    <span>{{item.title}}</span>
 							    <div class="bottom clearfix">
-							        <time class="time">2018-8-15</time>
-							        <el-button type="text" class="button" @click="openDialog">百度网盘获取</el-button>
+							        <time class="time">{{item.ctime}}</time>
+							        <el-button type="text" class="button" @click="openDialog(item)">百度网盘获取</el-button>
 							    </div>
 							</div>
 						</el-card>
@@ -51,18 +51,18 @@
 			  	<div class="title">
 			  		<span style="font-size: 20px;">软件分享</span>
 			  		<span class="get-more">
-			  			获取更多>>
+			  			<router-link to="/sourceMore/3" tag="span">获取跟多>></router-link>
 			  		</span>
 			  	</div>
 				<el-row>
-					<el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
+					<el-col :span="6" v-for="(item, index) in softwareData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="hamburgerImg" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
 							<div style="padding: 14px;">
-							    <span>好吃的汉堡</span>
+							    <span>{{item.title}}</span>
 							    <div class="bottom clearfix">
-							        <time class="time">2018-8-15</time>
-							        <el-button type="text" class="button" @click="openDialog">百度网盘获取</el-button>
+							        <time class="time">{{item.ctime}}</time>
+							        <el-button type="text" class="button" @click="openDialog(item)">百度网盘获取</el-button>
 							    </div>
 							</div>
 						</el-card>
@@ -71,30 +71,53 @@
 			</div>
 
 		</div>
-		<VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog'></VsourceCard>
+		<VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog' :resourceData='resourceData'></VsourceCard>
     </div>
 </template>
 <script>
-    import hamburgerImg from '@/assets/test.png'
-	import VsourceCard from '../common/VsourceCard'
+    import hamburgerImg from '@/assets/test.png';
+	import VsourceCard from '../common/VsourceCard';
+	import axios from 'axios';
     export default{
 		name:'vmain',
         data(){
             return {
 				hamburgerImg,
 				resourceDialogTableVisible:false,
+				videoData:'',
+				PDFbookData:'',
+				softwareData:'',
+				resourceData:{'data':''}
             }
         },
         methods:{ 
 			closeDialog(){
                 this.resourceDialogTableVisible = false
             },
-            openDialog(){
+            openDialog(data){
+				console.log(data)
+				this.resourceData.data = data
                 this.resourceDialogTableVisible = true
             }
         },
 		components:{
 			VsourceCard,
+		},
+		created(){
+			axios.get('http://127.0.0.1:8000/api/v1/mihonShare/mainPage')
+            .then(response=>{
+				console.log(12345666)
+				console.log(response)
+				if (response.data.code == 10000){
+					this.videoData = response.data.data.video;
+					this.PDFbookData = response.data.data.PDFbook;
+					this.softwareData = response.data.data.software;
+					console.log(response)
+				}
+            })
+            .catch(error=>{
+                console.log(error)
+            }) 
 		}
     }
 </script>

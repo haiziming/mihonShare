@@ -6,12 +6,12 @@
 					<span><i class="icon iconfont icon-tuijian2 recommend-icon"></i>推荐 Recommend</span>
 				</div>
 				<div v-for="(item,index) in recommendData.data" :key="index" class="text item">
-					<a class="link-a" @click="openDialog" v-cloak href="javascript:void(0)">
+					<a class="link-a" @click="openDialog(item)" v-cloak href="javascript:void(0)">
                         <span class="title">{{item.title}}</span> 
                         <span class="time">--{{item.ctime}}</span>    
                     </a> 
 				</div>
-                <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog'></VsourceCard>
+                <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog' :resourceData='resourceData'></VsourceCard>
 			</el-card>
 		</div>
     </div>
@@ -22,10 +22,12 @@
         data(){
             return {
                 resourceDialogTableVisible:false,
+                resourceData:{'data':''}
             }
         },
         methods:{ 
-            openDialog(){
+            openDialog(data){
+                this.resourceData.data = data;
                 this.resourceDialogTableVisible = true;
             },
             closeDialog(){

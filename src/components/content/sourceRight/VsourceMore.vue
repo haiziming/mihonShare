@@ -50,6 +50,12 @@
                     1:'视频分享',
                     2:'PDF书籍',
                     3:'软件分享'
+                },
+                vedioCategory:{
+                    '1-1':'videoFlim',
+                    '1-2':'videoPython',
+                    '1-3':'videoWen',
+                    '1-4':'videoOther',
                 }
             }
         },
@@ -67,15 +73,16 @@
         computed:{
             sourceTypeValue(){
                 if (this.sourceCategory[this.$route.params.sourceMoreValue]){
-                    return this.$route.params.sourceMoreValue
+                    return this.$route.params.sourceMoreValue;
+                }else if(this.vedioCategory[this.$route.params.sourceMoreValue]){
+                    return 1;
                 }else{
-                    this.$router.push('/404')
+                    this.$router.push('/404');
                 }
                 
             }
 
         },
-
     }
 </script>
 

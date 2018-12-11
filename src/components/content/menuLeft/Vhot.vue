@@ -6,12 +6,12 @@
 					<span><i class="icon iconfont icon-zuire" style="color: red;"></i>最热 Hot</span>
 				</div>
 				<div v-for="(item,index) in hotData.data" :key="index" class="text item">
-					<a class="link-a" href="javascript:void(0)" @click="openDialog" v-cloak>
+					<a class="link-a" href="javascript:void(0)" @click="openDialog(item)" v-cloak>
                         <span class="title">{{item.title}}</span>
                         <span class="time">--{{item.ctime}}</span>
                     </a> 
 				</div>
-                <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog'></VsourceCard>
+                <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog' :resourceData='resourceData'></VsourceCard>
 			</el-card>
 		</div>
     </div>
@@ -22,10 +22,12 @@
         data(){
             return {
                 resourceDialogTableVisible:false,
+                resourceData:{'data':''}
             }
         },
         methods:{ 
-            openDialog(){
+            openDialog(data){
+                this.resourceData.data = data
                 this.resourceDialogTableVisible = true;
             },
             closeDialog(){
