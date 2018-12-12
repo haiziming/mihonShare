@@ -146,7 +146,8 @@
             },
             loginOut(){
                 this.loginDisplay = true;
-                this.userDisplay = false;
+				this.userDisplay = false;
+				this.imgUpload = false;
                 this.$notify({
 						message: '注销成功！',
 						type: 'success',

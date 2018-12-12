@@ -46,7 +46,6 @@
                 this.hotData.data = this.remoteData.data.data.hot;
                 this.commentData.data = this.remoteData.data.data.message;
                 this.recommendData.data = this.remoteData.data.data.recommend;
-                console.log(this.recommendData.data)
             })
             .catch(error=>{
                 console.log(error)

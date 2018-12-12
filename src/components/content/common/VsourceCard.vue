@@ -20,6 +20,7 @@
     </div>
 </template>
 <script>
+    import axios from 'axios';
     export default{
         props:{
             resourceDialogTableVisible:Boolean,
@@ -41,6 +42,17 @@
                 });
             },
             handleClose(){
+                axios.post('http://127.0.0.1:8000/api/v1/mihonShare/addCounter', {
+                        nid: this.resourceData.data.id,
+                    })
+                    .then(response=>{
+                        this.$emit('closed');
+                    }) 
+                    .catch(error=>{
+                        console.log(error);
+                    });
+
+
                 this.$emit('closed');
             }
         },

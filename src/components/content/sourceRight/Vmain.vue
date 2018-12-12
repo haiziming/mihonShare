@@ -95,7 +95,6 @@
                 this.resourceDialogTableVisible = false
             },
             openDialog(data){
-				console.log(data)
 				this.resourceData.data = data
                 this.resourceDialogTableVisible = true
             }
@@ -106,13 +105,10 @@
 		created(){
 			axios.get('http://127.0.0.1:8000/api/v1/mihonShare/mainPage')
             .then(response=>{
-				console.log(12345666)
-				console.log(response)
 				if (response.data.code == 10000){
 					this.videoData = response.data.data.video;
 					this.PDFbookData = response.data.data.PDFbook;
-					this.softwareData = response.data.data.software;
-					console.log(response)
+					this.softwareData = response.data.data.software;	
 				}
             })
             .catch(error=>{
