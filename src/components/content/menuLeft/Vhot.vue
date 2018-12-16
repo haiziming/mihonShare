@@ -8,7 +8,6 @@
 				<div v-for="(item,index) in hotData.data" :key="index" class="text item">
 					<a class="link-a" href="javascript:void(0)" @click="openDialog(item)" v-cloak>
                         <span class="title">{{item.title}}</span>
-                        <span class="time">--{{item.ctime}}</span>
                     </a> 
 				</div>
                 <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog' :resourceData='resourceData'></VsourceCard>

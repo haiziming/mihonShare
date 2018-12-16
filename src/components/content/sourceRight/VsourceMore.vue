@@ -8,7 +8,7 @@
                 <div v-for="(currRow, index) in dataRow" :key="index" class="row" >
                     <el-row v-if="currRow < dataRow">
                         <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
-                            <el-card :body-style="{ padding: '0px' }" shadow="hover" >
+                            <el-card :body-style="{ padding: '0px' }" shadow="hover">
                                 <img :src="'http://127.0.0.1:8000' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image"
                                  :title="sourceComputedData.data.results[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
@@ -83,7 +83,7 @@
                 dataCor:0,
                 sourceData:{'data':''},
                 resourceData:{'data':''},
-                pageSize:9,
+                pageSize:12,
             }
         },
         methods:{ 
@@ -153,7 +153,7 @@
 <style scoped="scoped">
     img{
 		width: 100%;
-		height: 236px;
+		height: 160px;
 	}
 	.share-content{
 		background-color: #FBFDFF;
@@ -174,7 +174,7 @@
     }
     .page-item{
         margin-top: 30px;
-        margin-bottom: 45px;
+        margin-bottom: 10px;
     }
     .more-text{
         overflow: hidden;

@@ -7,8 +7,7 @@
 				</div>
 				<div v-for="(item,index) in recommendData.data" :key="index" class="text item">
 					<a class="link-a" @click="openDialog(item)" v-cloak href="javascript:void(0)">
-                        <span class="title">{{item.title}}</span> 
-                        <span class="time">--{{item.ctime}}</span>    
+                        <span class="title">{{item.title}}</span>    
                     </a> 
 				</div>
                 <VsourceCard :resourceDialogTableVisible='resourceDialogTableVisible' @closed='closeDialog' :resourceData='resourceData'></VsourceCard>

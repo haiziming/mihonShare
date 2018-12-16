@@ -121,7 +121,7 @@
 <style scoped="scoped">
     img{
 		width: 100%;
-		height: 236px;
+		height: 160px;
 	}
 	.share-content{
 		background-color: #FBFDFF;
