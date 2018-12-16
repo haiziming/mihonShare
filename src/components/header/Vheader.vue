@@ -30,14 +30,18 @@
                         </el-dropdown-menu>
                     </el-dropdown>
 				</span>
-				<span index="8" style="float: right;margin-top:10px">
-					<el-input placeholder="请输入内容" v-model="search" class="input-with-select" style="float: right;">
+				<span index="8" style="float: right;margin-top:10px" @keyup.enter="searchHandller">
+					<el-input placeholder="请输入内容" v-model="search" class="input-with-select" style="float: right;" >
 						<el-select v-model="select" slot="prepend" placeholder="请选择">
-						    <el-option label="教学视屏" value="1"></el-option>
-						    <el-option label="PDF书籍" value="2"></el-option>
-						    <el-option label="软件分享" value="3"></el-option>
+						    <el-option label="教学视屏" value="video"></el-option>
+						    <el-option label="PDF书籍" value="PDFbook"></el-option>
+						    <el-option label="软件分享" value="software"></el-option>
+							<hr>
+							<el-option label="全部" value="" class="allOption"></el-option>
 						</el-select>
-						<el-button slot="append" icon="el-icon-search"></el-button>
+						<el-button slot="append" @click="searchHandller" icon="el-icon-search">
+							<!-- <router-link :to="{name:'sourceSearch',params:{category:select,search:search}}" tag="span" class="el-icon-search"></router-link> -->
+						</el-button>
 					</el-input>
 				</span>
 			</el-menu>
@@ -87,7 +91,11 @@
     </div>
 </template>
 <script>
-	import Vheader from './Vheader'
+	import Vheader from './Vheader';
+	import st from '../../vuex/store.js';
+	import store from '../../vuex/store.js';
+	import { mapState,mapMutations,mapGetters,mapActions } from 'vuex';
+	import axios from 'axios';
     export default{
     	data(){
     		return {
@@ -117,27 +125,61 @@
     	},
 		components:{ 
 			Vheader,
-		 },
+		},
+		mounted(){
+			if (this.$route.params.sourceMoreValue){
+                this.activeIndex2 = this.$route.params.sourceMoreValue;
+                this.activeIndex2 = parseInt(this.activeIndex2) + 1;
+                if (this.activeIndex2 == 2){
+                    this.activeIndex2 = '2-1'
+                }else{
+                    this.activeIndex2 =this.activeIndex2.toString()
+                }
+                console.log(this.activeIndex2)
+            }else{
+                this.activeIndex2 = '1'
+            }
+		},
         methods:{
 			handleSelect(key, keyPath) {
 		        console.log(key, keyPath);
 			},
 			openLogin(){
-				if(this.loginForm.account == '10021' && this.loginForm.password == '123'){
-					this.imgUpload = true;
-					this.loginDisplay = false;
-					this.userDisplay = true;
-					this.classInit = false;
-					this.$notify({
-						message: '登入成功！',
-						type: 'success',
-						position: 'top-left',
-						duration:2000
-					});
-				}
-				this.loginDialogTableVisible = false;
-				this.loginForm.account = '';
-				this.loginForm.password = '';
+				axios.post('http://127.0.0.1:8000/api/v1/mihonShare/login',
+				{account:this.loginForm.account,password:this.loginForm.password})
+                    .then(response=>{
+                        if (response.data.code == 10000){
+							this.imgUpload = true;
+							this.loginDisplay = false;
+							this.userDisplay = true;
+							this.classInit = false;
+							this.$notify({
+								message: '登入成功！',
+								type: 'success',
+								position: 'top-left',
+								duration:2000
+							});
+							this.loginDialogTableVisible = false;
+							this.loginForm.account = '';
+							this.loginForm.password = '';
+						}else{
+							this.$notify({
+								message: response.data.error,
+								type: 'error',
+								position: 'top-left',
+								duration:5000
+							});
+						}
+                    })
+                    .catch(error=>{
+                        this.$notify({
+							message: '服务器暂时无法响应，请稍后在尝试登入！',
+							type: 'error',
+							position: 'top-left',
+							duration:5000
+						});
+                    });
+				
 			},
 			closeLogin(){
 				this.loginDialogTableVisible = false;
@@ -174,6 +216,16 @@
 			},
 			handleBeforeUpload(file){
 				this.currentUploadFileName = file.name
+			},
+			searchHandller:function(){
+				console.log(12332);
+				console.log(this.search);
+				console.log(this.select);
+				this.$store.dispatch('addAction',1)
+				this.$store.dispatch('getSearchDataAction',{category:this.select,search:this.search,page:1});
+				this.$router.push({
+					name:"sourceSearch"
+				})
 			}
         }
     }
@@ -193,5 +245,12 @@
 	}
 	#title-marginB{
 		margin-right: 30%;
+	}
+	hr{
+		color: #cccccc;
+		opacity: 0.4;
+	}
+	.allOption{
+		text-align: center;
 	}
 </style>

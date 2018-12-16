@@ -3,19 +3,19 @@
         <div class="share-content">
 			<div class="item">
 			  	<div style="padding-top: 30px;padding-bottom: 7px;">
-			  		<span style="font-size: 20px;">{{sourceCategory[sourceTypeValue].title}}</span> 
+			  		<span style="font-size: 20px;">搜索结果: <span v-show="false"> {{sourceTypeValue}}</span></span> 
                 </div>
                 <div v-for="(currRow, index) in dataRow" :key="index" class="row" >
                     <el-row v-if="currRow < dataRow">
                         <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
-                            <el-card :body-style="{ padding: '0px' }" shadow="hover" >
-                                <img :src="'http://127.0.0.1:8000' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image"
-                                 :title="sourceComputedData.data.results[(currRow-1)*3 + index].title">
+                            <el-card :body-style="{ padding: '0px' }" shadow="hover">
+                                <img :src="'http://127.0.0.1:8000' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
+                                :title="sourceComputedData[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
-                                    <div class="more-text">{{sourceComputedData.data.results[(currRow-1)*3 + index].title}}</div>
+                                    <div class="more-text">{{sourceComputedData[(currRow-1)*3 + index].title}}</div>
                                     <div class="bottom clearfix">
-                                        <time class="time">{{sourceData.data.results[(currRow-1)*3 + index].ctime}}</time>
-                                        <el-button type="text" class="button"  @click="openDialog(sourceComputedData.data.results[(currRow-1)*3 + index])">百度网盘获取</el-button>
+                                        <time class="time">{{sourceComputedData[(currRow-1)*3 + index].ctime}}</time>
+                                        <el-button type="text" class="button"  @click="openDialog(sourceComputedData[(currRow-1)*3 + index])">百度网盘获取</el-button>
                                     </div>
                                 </div>
                             </el-card>
@@ -24,13 +24,13 @@
                     <el-row v-else>
                         <el-col :span="6" v-for="(o, index) in dataLength-((currRow-1)*3)" :key="o" :offset="index > 0 ? 2 : 0">
                             <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                                <img :src="'http://127.0.0.1:8000' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image" 
-                                :title="sourceComputedData.data.results[(currRow-1)*3 + index].title">
+                                <img :src="'http://127.0.0.1:8000' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
+                                :title="sourceComputedData[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
-                                    <div class="more-text">{{sourceComputedData.data.results[(currRow-1)*3 + index].title}}</div>
+                                    <div class="more-text">{{sourceComputedData[(currRow-1)*3 + index].title}}</div>
                                     <div class="bottom clearfix">
-                                        <time class="time">{{sourceComputedData.data.results[(currRow-1)*3 + index].ctime}}</time>
-                                        <el-button type="text" class="button"  @click="openDialog(sourceComputedData.data.results[(currRow-1)*3 + index])">百度网盘获取</el-button>
+                                        <time class="time">{{sourceComputedData[(currRow-1)*3 + index].ctime}}</time>
+                                        <el-button type="text" class="button"  @click="openDialog(sourceComputedData[(currRow-1)*3 + index])">百度网盘获取</el-button>
                                     </div>
                                 </div>
                             </el-card>
@@ -44,7 +44,7 @@
                             @current-change="currPage"
                             :page-size="pageSize"
                             layout="prev, pager, next"
-                            :total="sourceData.data.count">
+                            :total="pageCount">
                         </el-pagination>
                     </span>
                 </div>
@@ -57,6 +57,7 @@
 <script>
     import hamburgerImg from '@/assets/test.png';
     import VsourceCard from '../common/VsourceCard';
+    import store from '../../../vuex/store'
     import axios from 'axios';
     export default{
         name:'sourceMore',
@@ -77,13 +78,12 @@
                     '1-4':'videoOther',
                 },
                 value:'',
-                category:'',
-                dataLength:0,
-                dataRow:0,
-                dataCor:0,
                 sourceData:{'data':''},
                 resourceData:{'data':''},
                 pageSize:9,
+                count:0,
+                search:'',
+                category:'',
             }
         },
         methods:{ 
@@ -95,15 +95,9 @@
                 this.resourceDialogTableVisible = true
             },
             currPage(data){
-                axios.get('http://127.0.0.1:8000/api/v1/mihonShare/resourceMore?category=' + this.category + '&page=' + data)
-                .then(response=>{
-                    this.sourceData.data = response.data;
-                    this.dataLength = response.data.results.length;
-                    this.dataRow = Math.ceil(this.dataLength / 3)
-                })
-                .catch(error=>{
-                    console.log(error)
-                })
+                this.$store.dispatch('addAction',1)
+                this.$store.dispatch('getSearchDataAction',{category:this.category,
+                search:this.search,page:data});
             }
         },
 		components:{
@@ -111,48 +105,42 @@
         },
         computed:{
             sourceTypeValue(){
-                if (this.sourceCategory[this.$route.params.sourceMoreValue]){
-                    this.value = this.$route.params.sourceMoreValue;
-                    this.category = this.sourceCategory[this.value].category
-                    axios.get('http://127.0.0.1:8000/api/v1/mihonShare/resourceMore?category=' + this.category)
-                    .then(response=>{
-                        this.sourceData.data = response.data;
-                        this.dataLength = response.data.results.length;
-                        this.dataRow = Math.ceil(this.dataLength / 3)
-                    })
-                    .catch(error=>{
-                        console.log(error)
-                    })
-                    return this.$route.params.sourceMoreValue;
-                }else if(this.vedioCategory[this.$route.params.sourceMoreValue]){
-                    this.value = this.$route.params.sourceMoreValue;
-                    this.category = this.vedioCategory[this.value]
-                    axios.get('http://127.0.0.1:8000/api/v1/mihonShare/resourceMore?category=' + this.category)
-                    .then(response=>{
-                        this.sourceData.data = response.data;
-                        this.dataLength = response.data.results.length;
-                        this.dataRow = Math.ceil(this.dataLength / 3)
-                    })
-                    .catch(error=>{
-                        console.log(error)
-                    });
-                    return 1;
+                console.log('这里是Vsearch！')
+                console.log(this.$store)
+                return this.$store.state.searchData
+            },
+            sourceComputedData(){
+                this.search = this.$store.state.searchItem.search;
+                this.category = this.$store.state.searchItem.category;
+                console.log(this.category,this.search)
+                return this.$store.state.searchData.results;
+            },
+            pageCount(){
+                return this.$store.state.searchData.count;
+            },
+            dataLength(){
+                if (this.pageCount > 0){
+                    return this.$store.state.searchData.results.length;
                 }else{
-                    this.$router.push('/404');
+                    return 0;
                 }
                 
             },
-            sourceComputedData(){
-                return this.sourceData
-            }
-
+            dataRow(){
+                if (this.pageCount > 0){
+                    return Math.ceil(this.$store.state.searchData.results.length / 3);
+                }else{
+                    return 0;
+                }
+                
+            },
         },
     }
 </script>
 
 <style scoped="scoped">
     img{
-		width: 100%;
+		width: 244px;
 		height: 236px;
 	}
 	.share-content{

@@ -1,6 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 import { stat } from 'fs';
+import axios from 'axios';
 
 
 Vue.use(Vuex)
@@ -8,10 +9,13 @@ Vue.use(Vuex)
 const state={
     count:1,
     remote:1,
+    searchItem:'',
+    searchData:''
 }
 
 const mutations={
     add(state,num){
+        console.log(num)
         state.count += num;
     },
     reduce(state){
@@ -19,7 +23,19 @@ const mutations={
     },
     getRemote(state){
         state.remote += 1;
-    }
+    },
+    getSearchData(state,args){
+        axios.get('http://127.0.0.1:8000/api/v1/mihonShare/resourceMore?category=' + 
+        args.category + '&search=' + args.search + '&page=' + args.page)
+                    .then(response=>{
+                        console.log('这里是store')
+                        state.searchData = response.data;
+                        state.searchItem = {category:args.category,search:args.search}    
+                    })
+                    .catch(error=>{
+                        console.log(error);
+                    })        
+    },
 }
 
 const getters={
@@ -29,14 +45,17 @@ const getters={
 }
 
 const actions={
-    addAction(context){
-        context.commit('add',10);
+    addAction(context,num){
+        context.commit('add',num);
     },
     reduceAction({commit}){
         commit('reduce')
     },
     getRemoteAction(context){
         context.commit('getRemote')
+    },
+    getSearchDataAction(context,args){
+        context.commit('getSearchData',args)
     }
 }
 

@@ -11,9 +11,9 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in videoData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
-							    <span>{{item.title}}</span>
+							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
 							        <time class="time">{{item.ctime}}</time>
 							        <el-button type="text" class="button"  @click="openDialog(item)">百度网盘获取</el-button>
@@ -34,9 +34,9 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in PDFbookData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
-							    <span>{{item.title}}</span>
+							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
 							        <time class="time">{{item.ctime}}</time>
 							        <el-button type="text" class="button" @click="openDialog(item)">百度网盘获取</el-button>
@@ -57,9 +57,9 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in softwareData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image">
+							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
-							    <span>{{item.title}}</span>
+							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
 							        <time class="time">{{item.ctime}}</time>
 							        <el-button type="text" class="button" @click="openDialog(item)">百度网盘获取</el-button>
@@ -120,7 +120,7 @@
 
 <style scoped="scoped">
     img{
-		width: 244px;
+		width: 100%;
 		height: 236px;
 	}
 	.share-content{
@@ -142,4 +142,9 @@
         padding-top: 38px;
         padding-bottom: 7px;
     }
+	.more-text{
+		overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+	}
 </style>
