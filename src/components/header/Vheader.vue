@@ -135,14 +135,13 @@
                 }else{
                     this.activeIndex2 =this.activeIndex2.toString()
                 }
-                console.log(this.activeIndex2)
             }else{
                 this.activeIndex2 = '1'
             }
 		},
         methods:{
 			handleSelect(key, keyPath) {
-		        console.log(key, keyPath);
+		        console.log(1);
 			},
 			openLogin(){
 				axios.post('http://127.0.0.1:8000/api/v1/mihonShare/login',
@@ -201,10 +200,10 @@
 				this.imgUploadDialogTableVisible = false;
 			},
 			handleRemove(file, fileList) {
-				console.log(file, fileList);
+				console.log(1);
 			},
 			handlePreview(file) {
-				console.log(file);
+				console.log(1);
 			},
 			handleError(file){
 				var text = this.currentUploadFileName + ",图片上传失败！"
@@ -218,9 +217,6 @@
 				this.currentUploadFileName = file.name
 			},
 			searchHandller:function(){
-				console.log(12332);
-				console.log(this.search);
-				console.log(this.select);
 				this.$store.dispatch('addAction',1)
 				this.$store.dispatch('getSearchDataAction',{category:this.select,search:this.search,page:1});
 				this.$router.push({

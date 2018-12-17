@@ -80,7 +80,7 @@
                 value:'',
                 sourceData:{'data':''},
                 resourceData:{'data':''},
-                pageSize:9,
+                pageSize:12,
                 count:0,
                 search:'',
                 category:'',
@@ -105,14 +105,11 @@
         },
         computed:{
             sourceTypeValue(){
-                console.log('这里是Vsearch！')
-                console.log(this.$store)
                 return this.$store.state.searchData
             },
             sourceComputedData(){
                 this.search = this.$store.state.searchItem.search;
                 this.category = this.$store.state.searchItem.category;
-                console.log(this.category,this.search)
                 return this.$store.state.searchData.results;
             },
             pageCount(){

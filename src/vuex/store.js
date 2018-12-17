@@ -28,7 +28,6 @@ const mutations={
         axios.get('http://127.0.0.1:8000/api/v1/mihonShare/resourceMore?category=' + 
         args.category + '&search=' + args.search + '&page=' + args.page)
                     .then(response=>{
-                        console.log('这里是store')
                         state.searchData = response.data;
                         state.searchItem = {category:args.category,search:args.search}    
                     })
