@@ -11,7 +11,7 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in videoData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
+							<img :src="'http://39.108.105.106:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
 							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
@@ -34,7 +34,7 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in PDFbookData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
+							<img :src="'http://39.108.105.106:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
 							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
@@ -57,7 +57,7 @@
 				<el-row>
 					<el-col :span="6" v-for="(item, index) in softwareData" :key="index" :offset="index > 0 ? 2 : 0">
 						<el-card :body-style="{ padding: '0px' }" shadow="hover">
-							<img :src="'http://127.0.0.1:8000'+item.img" class="image" :title="item.title">
+							<img :src="'http://39.108.105.106:8000'+item.img" class="image" :title="item.title">
 							<div style="padding: 14px;">
 							    <div class="more-text">{{item.title}}</div>
 							    <div class="bottom clearfix">
@@ -103,7 +103,7 @@
 			VsourceCard,
 		},
 		created(){
-			axios.get('http://127.0.0.1:8000/api/v1/mihonShare/mainPage')
+			axios.get('http://39.108.105.106:8000/api/v1/mihonShare/mainPage')
             .then(response=>{
 				if (response.data.code == 10000){
 					this.videoData = response.data.data.video;

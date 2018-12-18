@@ -49,7 +49,7 @@
                 });
             },
             handleClose(){
-                axios.post('http://127.0.0.1:8000/api/v1/mihonShare/addCounter', {
+                axios.post('http://39.108.105.106:8000/api/v1/mihonShare/addCounter', {
                         nid: this.resourceData.data.id,
                     })
                     .then(response=>{

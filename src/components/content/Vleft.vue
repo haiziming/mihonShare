@@ -39,7 +39,7 @@
 
         },
         created(){
-            axios.get('http://127.0.0.1:8000/api/v1/mihonShare/left')
+            axios.get('http://39.108.105.106:8000/api/v1/mihonShare/left')
             .then(response=>{
                 this.remoteData = response;
                 this.newData.data = this.remoteData.data.data.new;

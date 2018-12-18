@@ -144,7 +144,7 @@
 		        console.log(1);
 			},
 			openLogin(){
-				axios.post('http://127.0.0.1:8000/api/v1/mihonShare/login',
+				axios.post('http://39.108.105.106:8000/api/v1/mihonShare/login',
 				{account:this.loginForm.account,password:this.loginForm.password})
                     .then(response=>{
                         if (response.data.code == 10000){
