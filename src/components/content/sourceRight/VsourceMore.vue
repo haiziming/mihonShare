@@ -9,7 +9,7 @@
                     <el-row v-if="currRow < dataRow">
                         <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
                             <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                                <img :src="'http://39.108.105.106:8000' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image"
+                                <img :src="'http://share.mihon.cn' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image"
                                  :title="sourceComputedData.data.results[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
                                     <div class="more-text">{{sourceComputedData.data.results[(currRow-1)*3 + index].title}}</div>
@@ -24,7 +24,7 @@
                     <el-row v-else>
                         <el-col :span="6" v-for="(o, index) in dataLength-((currRow-1)*3)" :key="o" :offset="index > 0 ? 2 : 0">
                             <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                                <img :src="'http://39.108.105.106:8000' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image" 
+                                <img :src="'http://share.mihon.cn' + sourceComputedData.data.results[(currRow-1)*3 + index].img" class="image" 
                                 :title="sourceComputedData.data.results[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
                                     <div class="more-text">{{sourceComputedData.data.results[(currRow-1)*3 + index].title}}</div>
@@ -95,7 +95,7 @@
                 this.resourceDialogTableVisible = true
             },
             currPage(data){
-                axios.get('http://39.108.105.106:8000/api/v1/mihonShare/resourceMore?category=' + this.category + '&page=' + data)
+                axios.get('http://share.mihon.cn/api/v1/mihonShare/resourceMore?category=' + this.category + '&page=' + data)
                 .then(response=>{
                     this.sourceData.data = response.data;
                     this.dataLength = response.data.results.length;
@@ -114,7 +114,7 @@
                 if (this.sourceCategory[this.$route.params.sourceMoreValue]){
                     this.value = this.$route.params.sourceMoreValue;
                     this.category = this.sourceCategory[this.value].category
-                    axios.get('http://39.108.105.106:8000/api/v1/mihonShare/resourceMore?category=' + this.category)
+                    axios.get('http://share.mihon.cn/api/v1/mihonShare/resourceMore?category=' + this.category)
                     .then(response=>{
                         this.sourceData.data = response.data;
                         this.dataLength = response.data.results.length;
@@ -127,7 +127,7 @@
                 }else if(this.vedioCategory[this.$route.params.sourceMoreValue]){
                     this.value = this.$route.params.sourceMoreValue;
                     this.category = this.vedioCategory[this.value]
-                    axios.get('http://39.108.105.106:8000/api/v1/mihonShare/resourceMore?category=' + this.category)
+                    axios.get('http://share.mihon.cn/api/v1/mihonShare/resourceMore?category=' + this.category)
                     .then(response=>{
                         this.sourceData.data = response.data;
                         this.dataLength = response.data.results.length;

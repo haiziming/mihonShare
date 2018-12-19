@@ -25,7 +25,7 @@ const mutations={
         state.remote += 1;
     },
     getSearchData(state,args){
-        axios.get('http://39.108.105.106:8000/api/v1/mihonShare/resourceMore?category=' + 
+        axios.get('http://share.mihon.cn/api/v1/mihonShare/resourceMore?category=' + 
         args.category + '&search=' + args.search + '&page=' + args.page)
                     .then(response=>{
                         state.searchData = response.data;

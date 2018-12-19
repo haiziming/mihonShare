@@ -9,7 +9,7 @@
                     <el-row v-if="currRow < dataRow">
                         <el-col :span="6" v-for="(o, index) in 3" :key="o" :offset="index > 0 ? 2 : 0">
                             <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                                <img :src="'http://39.108.105.106:8000' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
+                                <img :src="'http://share.mihon.cn' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
                                 :title="sourceComputedData[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
                                     <div class="more-text">{{sourceComputedData[(currRow-1)*3 + index].title}}</div>
@@ -24,7 +24,7 @@
                     <el-row v-else>
                         <el-col :span="6" v-for="(o, index) in dataLength-((currRow-1)*3)" :key="o" :offset="index > 0 ? 2 : 0">
                             <el-card :body-style="{ padding: '0px' }" shadow="hover">
-                                <img :src="'http://39.108.105.106:8000' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
+                                <img :src="'http://share.mihon.cn' + sourceComputedData[(currRow-1)*3 + index].img" class="image" 
                                 :title="sourceComputedData[(currRow-1)*3 + index].title">
                                 <div style="padding: 14px;">
                                     <div class="more-text">{{sourceComputedData[(currRow-1)*3 + index].title}}</div>

@@ -97,7 +97,7 @@
         },
         methods:{ 
             openMessageBorad (){
-                axios.post('http://39.108.105.106:8000/api/v1/mihonShare/messageBord', {
+                axios.post('http://share.mihon.cn/api/v1/mihonShare/messageBord', {
                         name: this.messageForm.nickName,
                         content: this.messageForm.content,
                         mail: this.messageForm.email,
@@ -132,7 +132,7 @@
                 this.commitError = '';
                 },
             currPage(data){
-                axios.get('http://39.108.105.106:8000/api/v1/mihonShare/messageMore?page=' + data)
+                axios.get('http://share.mihon.cn/api/v1/mihonShare/messageMore?page=' + data)
                 .then(response=>{
                     this.moreComment.data = response.data;
                     this.moreComment.totialPage = response.data.count;
@@ -149,7 +149,7 @@
             commentData:Object,
         },
         mounted(){
-           axios.get('http://39.108.105.106:8000/api/v1/mihonShare/messageMore')
+           axios.get('http://share.mihon.cn/api/v1/mihonShare/messageMore')
             .then(response=>{
                 this.moreComment.data = response.data;
                 this.moreComment.totialPage = response.data.count;
